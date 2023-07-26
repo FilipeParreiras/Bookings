@@ -3,4 +3,4 @@
 
 - Built in go version 1.20
 - Uses the [chi router](https://github.com/go-chi/chi)
-- Uses [alex edwards SCS session management](https://github.com/alexedwards/scs)
+- Uses [alex edwards SCS session management](https://github.com/alexedwards/scs) a
