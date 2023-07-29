@@ -3,12 +3,11 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/FilipeParreiras/Bookings/internal/config"
+	"github.com/FilipeParreiras/Bookings/internal/models"
+	"github.com/FilipeParreiras/Bookings/internal/render"
 	"log"
 	"net/http"
-
-	"github.com/FilipeParreiras/Bookings/pkg/config"
-	"github.com/FilipeParreiras/Bookings/pkg/models"
-	"github.com/FilipeParreiras/Bookings/pkg/render"
 )
 
 // Repo the repository used by handlers

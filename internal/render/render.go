@@ -2,14 +2,13 @@ package render
 
 import (
 	"bytes"
+	"github.com/FilipeParreiras/Bookings/internal/config"
+	"github.com/FilipeParreiras/Bookings/internal/models"
 	"github.com/justinas/nosurf"
 	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
-
-	"github.com/FilipeParreiras/Bookings/pkg/config"
-	"github.com/FilipeParreiras/Bookings/pkg/models"
 )
 
 /*

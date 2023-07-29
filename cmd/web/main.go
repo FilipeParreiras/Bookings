@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
+	"github.com/FilipeParreiras/Bookings/internal/config"
+	"github.com/FilipeParreiras/Bookings/internal/handlers"
+	"github.com/FilipeParreiras/Bookings/internal/render"
 	"log"
 	"net/http"
 	"time"
-
-	"github.com/FilipeParreiras/Bookings/pkg/config"
-	"github.com/FilipeParreiras/Bookings/pkg/handlers"
-	"github.com/FilipeParreiras/Bookings/pkg/render"
 
 	"github.com/alexedwards/scs/v2"
 )
