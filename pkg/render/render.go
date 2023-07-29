@@ -2,6 +2,7 @@ package render
 
 import (
 	"bytes"
+	"github.com/justinas/nosurf"
 	"html/template"
 	"log"
 	"net/http"
@@ -16,7 +17,7 @@ import (
 
 	func RenderTemplate(w http.ResponseWriter, tmpl string) {
 		// ParseFiles takes one or more arguments -> variadic functions
-		parsedTemplate, _ := template.ParseFiles("./templates/"+tmpl, "./templates/base.layout.html")
+		parsedTemplate, _ := template.ParseFiles("./templates/"+tmpl, "./templates/base.layout.tmpl")
 
 		err := parsedTemplate.Execute(w, nil)
 		if err != nil {
@@ -55,7 +56,7 @@ var tc = make(map[string]*template.Template)
 	func createTemplateCache(t string) error {
 		templates := []string{
 			fmt.Sprintf("./templates/%s", t),
-			"./templates/base.layout.html",
+			"./templates/base.layout.tmpl",
 		}
 
 		// parse the template
@@ -78,11 +79,12 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+	td.CSRFToken = nosurf.Token(r)
 	return td
 }
 
-func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) {
 	var tc map[string]*template.Template
 	if app.UseCache {
 		tc = app.TemplateCache
@@ -106,7 +108,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 	}
 	// buffer
 	buf := new(bytes.Buffer)
-	td = AddDefaultData(td)
+	td = AddDefaultData(td, r)
 	err = t.Execute(buf, td)
 	if err != nil {
 		log.Println(err)
@@ -122,8 +124,8 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 
-	// get all of the files named *page.html from ./templates
-	pages, err := filepath.Glob("./templates/*.page.html")
+	// get all the files named *page.html from ./templates
+	pages, err := filepath.Glob("./templates/*.page.tmpl")
 	if err != nil {
 		return myCache, err
 	}
@@ -138,13 +140,13 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 			return myCache, err
 		}
 
-		matches, err := filepath.Glob("./templates/*layout.html")
+		matches, err := filepath.Glob("./templates/*layout.tmpl")
 		if err != nil {
 			return myCache, err
 		}
 
 		if len(matches) > 0 {
-			ts, err = ts.ParseGlob("./templates/*layout.html")
+			ts, err = ts.ParseGlob("./templates/*layout.tmpl")
 			if err != nil {
 				return myCache, err
 			}
