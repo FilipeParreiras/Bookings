@@ -39,6 +39,7 @@ erDiagram
     Room ||--o{ Reservation : "Reserved for"
     Room ||--o{ RoomRestrictions : "Has"
     Restriction ||--o{ RoomRestrictions : "Applies to"
+ ```
 
 ## Testing
 
