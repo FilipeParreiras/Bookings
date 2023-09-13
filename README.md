@@ -9,7 +9,6 @@ A webpage that allows users to explore and book hotel rooms. This project was ma
 - [Features](#features)
 - [Technologies](#technologies)
 - [Database](#database)
-- [Testing](#testing)
 
 ## Features
 
@@ -40,7 +39,3 @@ erDiagram
     Room ||--o{ RoomRestrictions : "Has"
     Restriction ||--o{ RoomRestrictions : "Applies to"
  ```
-
-## Testing
-
-Explain how to run tests for your project, including unit tests, integration tests, and end-to-end tests if applicable.
