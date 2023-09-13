@@ -50,7 +50,7 @@ type Reservation struct {
 	Processed int
 }
 
-// RoomRestrictions is the RoomRestriction model
+// RoomRestriction is the RoomRestriction model
 type RoomRestriction struct {
 	ID            int
 	RoomID        int
